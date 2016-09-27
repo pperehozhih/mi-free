@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA498C591D854F840022225D /* mi-free-lib.h in Headers */ = {isa = PBXBuildFile; fileRef = DA498C581D854F840022225D /* mi-free-lib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA498C901D85557E0022225D /* MiFree.h in Headers */ = {isa = PBXBuildFile; fileRef = DA498C8E1D85557E0022225D /* MiFree.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA498C911D85557E0022225D /* MiFree.m in Sources */ = {isa = PBXBuildFile; fileRef = DA498C8F1D85557E0022225D /* MiFree.m */; };
+		DA498C951D85876A0022225D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA498C941D85876A0022225D /* CoreBluetooth.framework */; };
+		DA498C991D858A430022225D /* MiFreeBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = DA498C971D858A430022225D /* MiFreeBuilder.h */; };
+		DA498C9A1D858A430022225D /* MiFreeBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = DA498C981D858A430022225D /* MiFreeBuilder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DA498C551D854F840022225D /* mi-free-lib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "mi-free-lib.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA498C551D854F840022225D /* MiFree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MiFree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA498C581D854F840022225D /* mi-free-lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mi-free-lib.h"; sourceTree = "<group>"; };
 		DA498C5A1D854F840022225D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA498C8E1D85557E0022225D /* MiFree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiFree.h; sourceTree = "<group>"; };
+		DA498C8F1D85557E0022225D /* MiFree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiFree.m; sourceTree = "<group>"; };
+		DA498C941D85876A0022225D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		DA498C971D858A430022225D /* MiFreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiFreeBuilder.h; sourceTree = "<group>"; };
+		DA498C981D858A430022225D /* MiFreeBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiFreeBuilder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA498C951D85876A0022225D /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -30,6 +40,7 @@
 		DA498C4B1D854F830022225D = {
 			isa = PBXGroup;
 			children = (
+				DA498C961D8587710022225D /* Frameworks */,
 				DA498C571D854F840022225D /* mi-free-lib */,
 				DA498C561D854F840022225D /* Products */,
 			);
@@ -38,7 +49,7 @@
 		DA498C561D854F840022225D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA498C551D854F840022225D /* mi-free-lib.framework */,
+				DA498C551D854F840022225D /* MiFree.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -46,10 +57,30 @@
 		DA498C571D854F840022225D /* mi-free-lib */ = {
 			isa = PBXGroup;
 			children = (
+				DA498C8D1D8555580022225D /* MiFree */,
 				DA498C581D854F840022225D /* mi-free-lib.h */,
 				DA498C5A1D854F840022225D /* Info.plist */,
 			);
 			path = "mi-free-lib";
+			sourceTree = "<group>";
+		};
+		DA498C8D1D8555580022225D /* MiFree */ = {
+			isa = PBXGroup;
+			children = (
+				DA498C8E1D85557E0022225D /* MiFree.h */,
+				DA498C8F1D85557E0022225D /* MiFree.m */,
+				DA498C971D858A430022225D /* MiFreeBuilder.h */,
+				DA498C981D858A430022225D /* MiFreeBuilder.m */,
+			);
+			name = MiFree;
+			sourceTree = "<group>";
+		};
+		DA498C961D8587710022225D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DA498C941D85876A0022225D /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,7 +90,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA498C591D854F840022225D /* mi-free-lib.h in Headers */,
+				DA498C901D85557E0022225D /* MiFree.h in Headers */,
+				DA498C991D858A430022225D /* MiFreeBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +113,7 @@
 			);
 			name = "mi-free-lib";
 			productName = "mi-free-lib";
-			productReference = DA498C551D854F840022225D /* mi-free-lib.framework */;
+			productReference = DA498C551D854F840022225D /* MiFree.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -131,6 +163,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA498C911D85557E0022225D /* MiFree.m in Sources */,
+				DA498C9A1D858A430022225D /* MiFreeBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,10 +269,11 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "mi-free-lib/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.ppaul.mi-free-lib";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MiFree;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -251,10 +286,11 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "mi-free-lib/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.ppaul.mi-free-lib";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MiFree;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -278,6 +314,7 @@
 				DA498C5F1D854F840022225D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

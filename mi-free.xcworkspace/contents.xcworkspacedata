@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:mi-free-client/MiFreePageBase/MiFreePageBase.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:mi-free-client/mi-free-client/mi-free-client.xcodeproj">
    </FileRef>
    <FileRef
