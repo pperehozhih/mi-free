@@ -93,12 +93,12 @@ typedef enum : NSUInteger {
 @interface MiFreeUserInfo : NSString
 
 @property (nonatomic, retain, readwrite) NSString* nick;
-@property int uid;
-@property int gender;
-@property int age;
-@property int height;
-@property int weight;
-@property int type;
+@property NSInteger uid;
+@property NSInteger gender;
+@property NSInteger age;
+@property NSInteger height;
+@property NSInteger weight;
+@property NSInteger type;
 
 -(id)init;
 
@@ -114,7 +114,7 @@ typedef enum : NSUInteger {
 
 /*!
 @function foundDevice callback for found device
-@param name name of device
+@param device
 @result need to connect device
 */
 -(BOOL)foundDevice:(MiFreeDevice*) device;
@@ -151,7 +151,8 @@ typedef enum : NSUInteger {
 
 /*!
  @function disconnectedFromDevice callback after disconnect device
- @param decide
+ @param device
+ @param error
  */
 -(void)disconnectedFromDevice:(MiFreeDevice*)device Error:(NSError*)error;
 
@@ -166,8 +167,6 @@ typedef enum : NSUInteger {
 @interface MiFree : NSObject
 
 -(id)initWithDelegate:(id<MiFreeDelegate>) delegate AutoConnect:(BOOL) autoconnect;
-
--(void)setUserInfo:(MiFreeUserInfo*)userInfo;
 
 -(void)searchDevices;
 
@@ -184,5 +183,7 @@ typedef enum : NSUInteger {
 -(void)test;
 
 -(void)readStatistic;
+
+-(void)login:(MiFreeUserInfo*)userInfo;
 
 @end

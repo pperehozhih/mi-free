@@ -116,7 +116,7 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
 
 -(NSData*)getData:(MiFreeDevice*)device {
    MiFreeBuilder* build = [[MiFreeBuilder alloc] init];
-   [build appendInt:_uid];
+   [build appendInt:(uint32_t)_uid];
    [build appendByte:_gender];
    [build appendByte:_age];
    [build appendByte:_height];
@@ -157,7 +157,7 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
 }
 
 -(NSString*)description {
-   return [NSString stringWithFormat:@"uuid = %d gender %@ age = %d height = %d weight = %d",
+   return [NSString stringWithFormat:@"uuid = %ld gender %@ age = %ld height = %ld weight = %ld",
            _uid, _gender == 0 ? @"man" : @"woman",
            _age, _height, _weight];
 }
@@ -227,6 +227,7 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
    CBCharacteristic*       _vibrate;
    CBCharacteristic*       _user_info;
    CBCharacteristic*       _date_time;
+   CBCharacteristic*       _device_info;
    MiFreeAcitivityDataDay* _day_data;
    NSString*               _device_id;
    int                     _profile_version;
@@ -259,6 +260,7 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
       _control          = nil;
       _test_char        = nil;
       _user_info        = nil;
+      _device_info      = nil;
       _date_time        = nil;
       _device_id        = nil;
       _profile_version  = -1;
@@ -344,15 +346,24 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
    _date_time = characteristic;
 }
 
+-(CBCharacteristic*)getDeviceInfo {
+   return _device_info;
+}
+
+-(void)setDeviceInfo:(CBCharacteristic*)characteristic {
+   _device_info = characteristic;
+}
+
 -(BOOL)isReady {
    return
-         _peripheral != nil &&
-         _control != nil &&
+         _peripheral    != nil &&
+         _control       != nil &&
          _activity_data != nil &&
-         _test_char != nil &&
-         _vibrate != nil &&
-         _user_info != nil &&
-         _date_time != nil;
+         _test_char     != nil &&
+         _vibrate       != nil &&
+         _user_info     != nil &&
+         _date_time     != nil &&
+         _device_info   != nil;
 }
 
 -(bool)isChecksumCorrect:(NSData*)data {
@@ -448,7 +459,8 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
    _delegate = delegate;
    _bluetooth_enabled = NO;
    _device = nil;
-   _manager = [[CBCentralManager alloc] initWithDelegate:(id)self queue:nil];
+   NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], CBCentralManagerOptionShowPowerAlertKey, nil];
+   _manager = [[CBCentralManager alloc] initWithDelegate:(id)self queue:nil options:options];
    return self;
 }
 
@@ -631,6 +643,7 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
       } else if ([UUID isEqualToString:kMiFreeUUIDVibarateKey]) {
          [_device setVibrate: characteristic];
       } else if ([UUID isEqualToString:kMiFreeUUIDDeviceInfoKey]) {
+         [_device setDeviceInfo:characteristic];
          [[_device getHandle] readValueForCharacteristic:characteristic];
       } else if ([UUID isEqualToString:kMiFreeUUIDDateTimeKey]) {
          [_device setDateTime:characteristic];
@@ -692,7 +705,7 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
    } else if ([UUID isEqualToString:kMiFreeUUIDPairKey]) {
       data = data;
    } else if ([UUID isEqualToString:kMiFreeUUIDDeviceInfoKey]) {
-      if ([_device fillDeviceInfo:data]) {
+      if ([_device fillDeviceInfo:data] && _userInfo != nil) {
          NSData* data = [_userInfo getData:_device];
          [peripheral writeValue:data forCharacteristic:[_device getUserInfo] type:CBCharacteristicWriteWithResponse];
       }
@@ -773,7 +786,7 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
 }
 
 -(void)readStatistic {
-   if (_device == nil) return;
+   if (_device == nil || _userInfo == nil) return;
    if ([_device isReady] == false) return;
    MiFreeBuilder* build = [[MiFreeBuilder alloc] init];
    [build appendByte:0x6];
@@ -781,6 +794,13 @@ static int const kMiFreeModeRegularDataLenMinute= 1;
    [[_device getHandle] writeValue:data
                  forCharacteristic:[_device getControl]
                               type:CBCharacteristicWriteWithResponse];
+}
+
+-(void)login:(MiFreeUserInfo*)userInfo {
+   if (_device == nil) return;
+   if ([_device isReady] == false) return;
+   [self setUserInfo:userInfo];
+   [[_device getHandle] readValueForCharacteristic:[_device getDeviceInfo]];
 }
 
 @end
